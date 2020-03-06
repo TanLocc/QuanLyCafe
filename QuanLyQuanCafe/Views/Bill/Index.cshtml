@@ -1,0 +1,123 @@
+﻿@model QuanLyQuanCafe.Models.BillData
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>BillList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+    <div class="col-md-6">
+
+
+        <table class="table">
+            <tr>
+                <th>
+                    TableName
+                </th>
+                <th>
+                    Status
+                </th>
+               
+                <th>
+                    DateCheckIn
+                </th>
+                <th>
+                    DateCheckOut
+                </th>
+
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.bills)
+            {   var message = item.status == 0 ? "Not pay" : "Payed"; 
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TableFood.name)
+                    </td>
+                    <td>
+                        <p>@message</p>
+                    </td>
+                   
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCheckIn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCheckOut)
+                    </td>
+
+
+                    <td>
+                       
+                        @Html.ActionLink("Details", "Index", new { id = item.id }) 
+                      
+                    </td>
+                </tr>
+            }
+
+        </table>
+  
+</div>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+                @if (ViewBag.Detail == true) {
+                <tr>
+                    <th><h3>Bill</h3></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Price/1 ($)
+                    </th>
+                    <th>
+                        count
+                    </th>
+                    <th>
+                        Price ($)
+                    </th>
+                    <th></th>
+                </tr>
+                foreach (var item in Model.billInfors)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Food.name)
+                    </td>
+
+                    <td>
+                        @item.Food.price
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.count)
+
+                    </td>
+                    <td>
+                        @(item.Food.price * item.count)
+                    </td>
+
+                </tr>
+
+                }
+                <tr>
+                    <th>
+                        Totel ($)
+                    </th>
+                    <td></td>
+                    <td></td>
+                    <td>@ViewBag.Totel</td>     
+                </tr>
+                    }
+                
+
+            </table>
+        </div>
+    </div>
